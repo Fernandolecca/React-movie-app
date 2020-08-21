@@ -29,8 +29,12 @@ export const StyledMovieThumb = styled.div`
       max-height: 450px;
     } */
 
-    .clickable {
-      cursor: pointer;
-    }
+    
+  }
+
+  .clickable {
+    cursor: pointer;
   }
 `;
+
+// img .clickable
