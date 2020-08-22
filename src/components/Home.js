@@ -1,5 +1,5 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import {API_KEY, API_URL, BACKDROP_SIZE, POSTER_SIZE, IMAGE_BASE_URL} from '../config'
+import React, {Fragment, useState} from 'react';
+import {API_KEY, API_URL, BACKDROP_SIZE, POSTER_SIZE, IMAGE_BASE_URL} from '../config';
 // Import components for Home page
 import HeroBanner from './elements/HeroBanner';
 import SearchBar from './elements/SearchBar';
@@ -9,10 +9,12 @@ import LoadMore from './elements/LoadMore';
 import Spinner from './elements/Spinner';
 // custom hook
 import {useHomeFetch} from './hooks/useHomeFetch';
+import NoImage from './images/no_image.jpg';
 
 const Home = () => {
     
     const [{state, loading, error}, fetchMovies] = useHomeFetch(); 
+    const [searchTerm, setSearchTerm] = useState('');
     console.log(state);
     
     if(error) return <div>Something went wrong!</div>
@@ -26,8 +28,24 @@ const Home = () => {
                 image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
             />
            <SearchBar/>
-           <Grid/>
-           <MovieThumb/>
+           <Grid header={searchTerm ? searchTerm : 'Popular movies'}>
+                {
+                    state.movies.map(movie => (
+                         <MovieThumb
+                            key={movie.id}
+                            clickable
+                            image={
+                                movie.poster_path ?
+                                `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                                : NoImage 
+                            }
+                            movieId={movie.id}
+                            movieName={movie.original_title}
+                         />
+                    ))
+                }
+           </Grid> 
+           
            <Spinner/>
            <LoadMore/>
        </Fragment>
