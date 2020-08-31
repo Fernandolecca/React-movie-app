@@ -37,11 +37,14 @@ const Home = () => {
 
     return (
        <Fragment>
-           <HeroBanner 
-                title={state.heroImage.original_title} 
-                text={state.heroImage.overview} 
-                image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
-            />
+           { !searchTerm && (
+                <HeroBanner 
+                    title={state.heroImage.original_title} 
+                    text={state.heroImage.overview} 
+                    image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.heroImage.backdrop_path}`}
+                />
+                )
+           }
            <SearchBar callback={searchMovies}/>
            <Grid header={searchTerm ? searchTerm : 'Popular movies'}>
                 {
