@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {StyledHeroImage} from '../styles/StyledHeroImage'
 
 const HeroBanner = ({title, image, text}) => (
@@ -12,5 +13,10 @@ const HeroBanner = ({title, image, text}) => (
     </StyledHeroImage>
 )
 
+HeroBanner.propTypes = {
+    title: PropTypes.string,
+    image: PropTypes.string,
+    text: PropTypes.string,
+}
 
 export default HeroBanner;
